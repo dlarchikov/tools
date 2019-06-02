@@ -1,8 +1,14 @@
 <nb-card>
     <nb-card-header>Google direct link</nb-card-header>
     <nb-card-body>
-        <input type="text" nbInput fullWidth placeholder="Insert google link" [(ngModel)]="sourceLink" status="{{inputStatus}}" />
-
+        <label>
+            <input type="text" nbInput fullWidth placeholder="Insert google link" [(ngModel)]="sourceLink" status="{{inputStatus}}" />
+            <small><b>Example:</b>
+                https://drive.google.com/file/d/1sdkj6_TIQHG4dA2xJbLZXgHbY0cdpMDT/view?usp=sharing
+                <b>or</b>
+                https://drive.google.com/open?id=1sdkj6_TIQHG4dA2xJbLZXgHbY0cdpMDT
+            </small>
+        </label>
         <label *ngIf="generatedLink" style="width: 100%">
             Result
             <input type="text" nbInput fullWidth [value]="generatedLink" status="info" readonly />

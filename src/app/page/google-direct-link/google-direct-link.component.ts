@@ -19,31 +19,22 @@ export class GoogleDirectLinkComponent implements OnInit {
             return
         }
 
-        if (!this.validate(value)) {
+        const parseResult = this.parse(value)
+
+        if (!parseResult) {
             this.inputStatus = 'danger'
             return
         } else {
             this.inputStatus = ''
         }
 
-        const valueParsed = this.parse(value)
-
-        this.generatedLink = 'https://drive.google.com/uc?export=download&id=' + valueParsed[1]
-    }
-
-    validate(value): boolean {
-        const result = this.parse(value)
-        return result !== null
+        this.generatedLink = 'https://drive.google.com/uc?export=download&id=' + parseResult[1]
     }
 
     parse(value) {
         const regExp = /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_\-=.]+)/
-        return value.match(regExp)
-    }
-
-    setSelected(event) {
-        event.relatedTarget.setSelectionRange(0, 10)
-        // console.log(event.relatedTarget.setSelectionRange)
+        const regExpShort = /https:\/\/drive\.google\.com\/open\?id=([a-zA-Z0-9_\-=.]+)/
+        return value.match(regExp) || value.match(regExpShort)
     }
 
     ngOnInit() {
