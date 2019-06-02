@@ -3,6 +3,14 @@ import {NbColorHelper, NbThemeService} from '@nebular/theme'
 import {IItems} from '../../../services/currency-history.service'
 import * as moment from 'moment'
 
+export enum Colors {
+    primary = '#8a7fff',
+    info = '#4ca6ff',
+    danger = '#ff4c6a',
+    success = '#40dc7e',
+    warning = '#ffa100',
+}
+
 @Component({
     selector: 'ngx-common-chart',
     template: `
@@ -13,6 +21,7 @@ import * as moment from 'moment'
 export class ChartComponent implements OnInit {
     processedData: any
     @Input() title: string = ''
+    @Input() color: string = Colors.primary
     options: any
 
     constructor(private theme: NbThemeService) {
@@ -25,7 +34,6 @@ export class ChartComponent implements OnInit {
                 return
             }
 
-            const colors: any = config.variables
             const chartjs: any = config.variables.chartjs
 
             const keys: string[] = []
@@ -41,8 +49,8 @@ export class ChartComponent implements OnInit {
                 datasets: [{
                     data: values,
                     label: this.title,
-                    backgroundColor: NbColorHelper.hexToRgbA(colors.primary, 0.3),
-                    borderColor: colors.primary,
+                    backgroundColor: NbColorHelper.hexToRgbA(this.color, 0.3),
+                    borderColor: this.color,
                 },
                 ],
             }

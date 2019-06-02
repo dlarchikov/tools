@@ -45,6 +45,35 @@ export class CurrencyHistoryService {
         })
     }
 
+    public getEos(): Promise<IItems[]> {
+        return new Promise(async (success) => {
+            const params = new HttpParams({
+                fromObject: {
+                    command: 'returnChartData',
+                    currencyPair: 'USDT_EOS',
+                    start: String(this.getDateStart()),
+                    end: String(this.getDateEnd()),
+                    period: String(86400),
+                },
+            })
+
+            this.httpClient
+                .request('GET', ENDPOINT, {responseType: 'json', params})
+                .subscribe((response: any) => {
+                    const result: IItems[] = []
+
+                    response.forEach((row) => {
+                        result.push({
+                            date: row.date,
+                            value: row.weightedAverage,
+                        })
+                    })
+
+                    return success(result)
+                })
+        })
+    }
+
     public getEth(): Promise<IItems[]> {
         return new Promise(async (success) => {
             const params = new HttpParams({

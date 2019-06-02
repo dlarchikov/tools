@@ -16,7 +16,18 @@
                 Etherium
             </nb-card-header>
             <nb-card-body>
-                <ngx-common-chart title="Etherium" [data]="ethChart"></ngx-common-chart>
+                <ngx-common-chart title="Etherium" [color]="colors.info" [data]="ethChart"></ngx-common-chart>
+            </nb-card-body>
+        </nb-card>
+    </div>
+
+    <div class="col-xxxl-12 col-xxl-21 col-lg-12 col-md-12">
+        <nb-card>
+            <nb-card-header>
+                EOS
+            </nb-card-header>
+            <nb-card-body>
+                <ngx-common-chart title="Eos" [color]="colors.success" [data]="eosChart"></ngx-common-chart>
             </nb-card-body>
         </nb-card>
     </div>
