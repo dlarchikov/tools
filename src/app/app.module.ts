@@ -17,9 +17,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 import {IndexComponent} from './page/index/index.component'
 import {NotFoundComponent} from './page/not-found/not-found.component'
 import {StaticPageComponent} from './page/static-page/static-page.component'
-import {GeneratorComponent} from './page/generator/generator.component'
 import {ChartComponent} from './page/common/chart/chart.component'
-import {ChartModule} from 'angular2-chartjs'
+import {ChartModule} from 'angular2-chartjs';
+import { WalletComponent } from './page/wallet/wallet.component';
+import { GoogleDirectLinkComponent } from './page/google-direct-link/google-direct-link.component'
 
 
 @NgModule({
@@ -28,8 +29,9 @@ import {ChartModule} from 'angular2-chartjs'
         IndexComponent,
         NotFoundComponent,
         StaticPageComponent,
-        GeneratorComponent,
         ChartComponent,
+        WalletComponent,
+        GoogleDirectLinkComponent,
     ],
     imports: [
         BrowserModule,

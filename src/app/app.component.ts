@@ -4,17 +4,41 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import {Component, OnInit} from '@angular/core'
-import {NbThemeService} from '@nebular/theme'
+import {NbMenuItem, NbThemeService} from '@nebular/theme'
 import {CookieService} from 'ngx-cookie-service'
 
 @Component({
     selector: 'ngx-app',
     template: `
         <ngx-sample-layout>
+            <nb-menu [items]="menu"></nb-menu>
             <router-outlet></router-outlet>
         </ngx-sample-layout>`,
 })
 export class AppComponent implements OnInit {
+    menu: NbMenuItem[] = [
+        {
+            title: 'Menu',
+            group: true,
+        },
+        {
+            title: 'Home',
+            icon: 'nb-home',
+            link: '/',
+        },
+        {
+            title: 'Wallet generate',
+            icon: 'nb-locked',
+            link: '/wallet',
+        },
+        {
+            title: 'Google direct link',
+            icon: 'nb-shuffle',
+            link: '/google-direct-link',
+        },
+    ]
+
+
     constructor(
         private cookieService: CookieService,
         private themeService: NbThemeService,

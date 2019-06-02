@@ -1,0 +1,11 @@
+<nb-card>
+    <nb-card-header>Google direct link</nb-card-header>
+    <nb-card-body>
+        <input type="text" nbInput fullWidth placeholder="Insert google link" [(ngModel)]="sourceLink" status="{{inputStatus}}" />
+
+        <label *ngIf="generatedLink" style="width: 100%">
+            Result
+            <input type="text" nbInput fullWidth [value]="generatedLink" status="info" readonly"/>
+        </label>
+    </nb-card-body>
+</nb-card>

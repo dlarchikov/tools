@@ -9,16 +9,11 @@ import {CurrencyHistoryService, IItems} from '../../services/currency-history.se
     styleUrls: ['./index.component.scss'],
 })
 export class IndexComponent implements OnInit {
-    @Input() type: TGenerate
-
-    keys: IKeyPair | IKeyPairEos
-    generatorStarted: boolean = false
 
     btcChart: IItems[]
     ethChart: IItems[]
 
     constructor(
-        private generatorService: GeneratorService,
         private currencyHistoryService: CurrencyHistoryService,
     ) {
     }
@@ -31,21 +26,5 @@ export class IndexComponent implements OnInit {
         this.currencyHistoryService
             .getEth()
             .then((value) => this.ethChart = value)
-    }
-
-    isGenerateDisabled(): boolean {
-        return !this.type
-    }
-
-    onSelectType() {
-        this.keys = undefined
-        this.generatorStarted = false
-    }
-
-    generate() {
-        this.generatorStarted = true
-        setTimeout(
-            async () => this.keys = await this.generatorService.generate(this.type), 500,
-        )
     }
 }
