@@ -36,6 +36,11 @@ export class AppComponent implements OnInit {
             icon: 'nb-shuffle',
             link: '/google-direct-link',
         },
+        {
+            title: 'QR-code generator',
+            icon: 'nb-grid-a-outline',
+            link: '/qr-code',
+        },
     ]
 
 

@@ -1,0 +1,21 @@
+<nb-card>
+    <nb-card-header>QR-code generator</nb-card-header>
+    <nb-card-body>
+        <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="link" placeholder="Insert link or text">
+            <span class="input-group-append">
+            <button class="btn btn-primary input-group-text" (click)="updateRender()">
+              Generate
+            </button>
+          </span>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <div id="qr-code">
+                    <div class="code-img" [innerHTML]="codeTag"></div>
+                </div>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

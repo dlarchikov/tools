@@ -5,6 +5,7 @@ import {NotFoundComponent} from './page/not-found/not-found.component'
 import {StaticPageComponent} from './page/static-page/static-page.component'
 import {WalletComponent} from './page/wallet/wallet.component'
 import {GoogleDirectLinkComponent} from './page/google-direct-link/google-direct-link.component'
+import {QrCodeComponent} from './page/qr-code/qr-code.component'
 
 const routes: Routes = [
     {
@@ -18,6 +19,10 @@ const routes: Routes = [
     {
         path: 'static/:name',
         component: StaticPageComponent,
+    },
+    {
+        path: 'qr-code',
+        component: QrCodeComponent,
     },
     {
         path: '',

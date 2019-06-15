@@ -20,7 +20,9 @@ import {StaticPageComponent} from './page/static-page/static-page.component'
 import {ChartComponent} from './page/common/chart/chart.component'
 import {ChartModule} from 'angular2-chartjs';
 import { WalletComponent } from './page/wallet/wallet.component';
-import { GoogleDirectLinkComponent } from './page/google-direct-link/google-direct-link.component'
+import { GoogleDirectLinkComponent } from './page/google-direct-link/google-direct-link.component';
+import { QrCodeComponent } from './page/qr-code/qr-code.component'
+import {NbCardModule} from '@nebular/theme'
 
 
 @NgModule({
@@ -32,6 +34,7 @@ import { GoogleDirectLinkComponent } from './page/google-direct-link/google-dire
         ChartComponent,
         WalletComponent,
         GoogleDirectLinkComponent,
+        QrCodeComponent,
     ],
     imports: [
         BrowserModule,
@@ -41,6 +44,7 @@ import { GoogleDirectLinkComponent } from './page/google-direct-link/google-dire
         NgbModule.forRoot(),
         ThemeModule.forRoot(),
         ChartModule,
+        NbCardModule,
     ],
     bootstrap: [AppComponent],
     providers: [
