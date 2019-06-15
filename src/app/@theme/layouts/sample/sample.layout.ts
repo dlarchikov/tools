@@ -1,7 +1,7 @@
 import {Component, OnDestroy} from '@angular/core'
 import {delay, takeWhile, withLatestFrom} from 'rxjs/operators'
 import {
-    NbMediaBreakpoint, NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService,
+    NbMediaBreakpoint, NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService,
 } from '@nebular/theme'
 
 import {Router} from '@angular/router'

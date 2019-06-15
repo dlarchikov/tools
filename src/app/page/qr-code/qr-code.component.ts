@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core'
+import {Component, OnInit} from '@angular/core'
 import * as qrcode from 'qrcode-generator'
 
 const TYPE_NUMBER = 4
@@ -13,9 +13,9 @@ const MARGIN = 0
 })
 export class QrCodeComponent implements OnInit {
     protected codeTag: any
-    private link: string = ''
+    protected link: string = ''
 
-    private updateRender() {
+    protected updateRender() {
         if (!this.link) {
             this.codeTag = ''
             return
