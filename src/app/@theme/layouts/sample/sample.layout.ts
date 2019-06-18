@@ -16,7 +16,7 @@ import {Router} from '@angular/router'
                 <ngx-header></ngx-header>
             </nb-layout-header>
 
-            <nb-sidebar #sideBar class="menu-sidebar"
+            <nb-sidebar #sideBar class="menu-sidebar" (mouseleave)="collapseMenu()"
                         tag="menu-sidebar" state="collapsed" fixed>
                 <ng-content select="nb-menu"></ng-content>
             </nb-sidebar>
@@ -71,6 +71,10 @@ export class SampleLayoutComponent implements OnDestroy {
 
     toggleMenu(): void {
         this.sidebarService.toggle()
+    }
+
+    collapseMenu(): void {
+        this.sidebarService.collapse('menu-sidebar')
     }
 
     ngOnDestroy() {
