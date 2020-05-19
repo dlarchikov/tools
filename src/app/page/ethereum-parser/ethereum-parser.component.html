@@ -1,0 +1,13 @@
+<nb-card>
+    <nb-card-header>Ethereum tx parser</nb-card-header>
+    <nb-card-body>
+        <label style="width: 100%">
+            <input type="text" nbInput fullWidth placeholder="Insert raw tx" [(ngModel)]="rawTx" />
+        </label>
+        <nb-card>
+            <nb-card-body *ngIf="parsedTx">
+                <pre>{{parsedTx}}</pre>
+            </nb-card-body>
+        </nb-card>
+    </nb-card-body>
+</nb-card>

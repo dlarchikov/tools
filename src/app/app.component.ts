@@ -41,6 +41,11 @@ export class AppComponent implements OnInit {
             icon: 'nb-grid-a-outline',
             link: '/qr-code',
         },
+        {
+            title: 'Ethereum tx parser',
+            icon: 'nb-compose',
+            link: '/ethereum-parser',
+        },
     ]
 
 

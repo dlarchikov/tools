@@ -23,6 +23,7 @@ import { WalletComponent } from './page/wallet/wallet.component';
 import { GoogleDirectLinkComponent } from './page/google-direct-link/google-direct-link.component';
 import { QrCodeComponent } from './page/qr-code/qr-code.component'
 import {NbCardModule} from '@nebular/theme'
+import { EthereumParserComponent } from './page/ethereum-parser/ethereum-parser.component'
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {NbCardModule} from '@nebular/theme'
         WalletComponent,
         GoogleDirectLinkComponent,
         QrCodeComponent,
+        EthereumParserComponent,
     ],
     imports: [
         BrowserModule,

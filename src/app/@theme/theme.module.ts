@@ -4,12 +4,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 
 import {
-    NbAccordionModule, NbActionsModule, NbAlertModule, NbButtonModule, NbCalendarKitModule, NbCalendarModule,
-    NbCalendarRangeModule, NbCardModule, NbChatModule, NbCheckboxModule, NbContextMenuModule, NbDatepickerModule,
+    NbAccordionModule, NbActionsModule, NbAlertModule, NbButtonModule, NbCardModule, NbCheckboxModule,
+    NbDatepickerModule,
     NbDialogModule, NbInputModule, NbLayoutModule, NbListModule, NbMenuModule, NbPopoverModule, NbProgressBarModule,
-    NbRadioModule, NbRouteTabsetModule, NbSearchModule, NbSelectModule, NbSidebarModule, NbSpinnerModule,
+    NbRadioModule, NbRouteTabsetModule, NbSelectModule, NbSidebarModule, NbSpinnerModule,
     NbStepperModule,
-    NbTabsetModule, NbThemeModule, NbToastrModule, NbTooltipModule, NbUserModule, NbWindowModule,
+    NbTabsetModule, NbThemeModule, NbToastrModule, NbUserModule, NbWindowModule,
 } from '@nebular/theme'
 
 import {NbSecurityModule} from '@nebular/security'
@@ -31,20 +31,15 @@ const NB_MODULES = [
     NbMenuModule,
     NbUserModule,
     NbActionsModule,
-    NbSearchModule,
     NbSidebarModule,
     NbCheckboxModule,
     NbPopoverModule,
-    NbContextMenuModule,
     NgbModule,
     NbSecurityModule, // *nbIsGranted directive,
     NbProgressBarModule,
-    NbCalendarModule,
-    NbCalendarRangeModule,
     NbStepperModule,
     NbButtonModule,
     NbListModule,
-    NbToastrModule,
     NbInputModule,
     NbAccordionModule,
     NbDatepickerModule,
@@ -54,9 +49,6 @@ const NB_MODULES = [
     NbSpinnerModule,
     NbRadioModule,
     NbSelectModule,
-    NbChatModule,
-    NbTooltipModule,
-    NbCalendarKitModule,
 ]
 
 const COMPONENTS = [
@@ -85,11 +77,8 @@ const NB_THEME_PROVIDERS = [
     ).providers,
     ...NbSidebarModule.forRoot().providers,
     ...NbMenuModule.forRoot().providers,
-    ...NbDatepickerModule.forRoot().providers,
     ...NbDialogModule.forRoot().providers,
-    ...NbWindowModule.forRoot().providers,
     ...NbToastrModule.forRoot().providers,
-    ...NbChatModule.forRoot().providers,
 ]
 
 @NgModule({
