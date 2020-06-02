@@ -7,6 +7,7 @@ import {WalletComponent} from './page/wallet/wallet.component'
 import {GoogleDirectLinkComponent} from './page/google-direct-link/google-direct-link.component'
 import {QrCodeComponent} from './page/qr-code/qr-code.component'
 import { EthereumParserComponent } from './page/ethereum-parser/ethereum-parser.component'
+import { CryptoSendComponent } from './page/crypto-send/crypto-send.component'
 
 const routes: Routes = [
     {
@@ -28,6 +29,10 @@ const routes: Routes = [
     {
         path: 'ethereum-parser',
         component: EthereumParserComponent,
+    },
+    {
+        path: 'crypto-send',
+        component: CryptoSendComponent,
     },
     {
         path: '',

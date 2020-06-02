@@ -1,0 +1,40 @@
+<nb-card>
+    <nb-card-header>
+        Send crypto currency
+    </nb-card-header>
+    <nb-card-body>
+        <nb-select placeholder="Select..." [(selected)]="type">
+            <nb-option value="ETH">Ethereum</nb-option>
+            <nb-option value="BTC" disabled>Bitcoin</nb-option>
+        </nb-select>
+
+        <div style="height: 12px"></div>
+
+        <input nbInput fullWidth [(ngModel)]="privateKey" placeholder="Your private key" [disabled]="!type">
+
+        <div style="height: 12px"></div>
+
+        <input nbInput fullWidth [(ngModel)]="target" placeholder="To" [disabled]="!type">
+
+        <div style="height: 12px"></div>
+
+        <input nbInput fullWidth [(ngModel)]="amount" placeholder="Amount" type="number" [disabled]="!type">
+    </nb-card-body>
+    <nb-card-footer>
+            <div class="row">
+                <div class="col-12">
+                    Choose speed
+                    <nb-radio-group [(ngModel)]="speed">
+                        <nb-radio value="10">10</nb-radio>
+                        <nb-radio value="20">20</nb-radio>
+                        <nb-radio value="3">30</nb-radio>
+                    </nb-radio-group>
+                </div>
+            </div>
+        <div class="row">
+            <div class="col-12">
+                <button nbButton (click)="sendClick()" [disabled]="!amount || !target || !privateKey">Send</button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

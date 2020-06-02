@@ -46,6 +46,11 @@ export class AppComponent implements OnInit {
             icon: 'nb-compose',
             link: '/ethereum-parser',
         },
+        {
+            title: 'Crypto send',
+            icon: 'nb-checkmark',
+            link: '/crypto-send',
+        },
     ]
 
 
