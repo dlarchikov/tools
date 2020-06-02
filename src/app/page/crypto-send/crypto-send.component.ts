@@ -76,7 +76,7 @@ export class CryptoSendComponent {
             },
         ]
 
-        const { inputs, outputs, fee } = coinSelect(utxos, targets, this.speed)
+        const { inputs, outputs } = coinSelect(utxos, targets, this.speed)
 
         if (!inputs || !outputs) {
             console.log('Solution not found')
