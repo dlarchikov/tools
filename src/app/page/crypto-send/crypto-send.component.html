@@ -10,30 +10,43 @@
 
         <div style="height: 12px"></div>
 
-        <input nbInput fullWidth [(ngModel)]="privateKey" placeholder="Your private key" [disabled]="!type">
+        <input nbInput fullWidth [(ngModel)]="privateKey" placeholder="Your private key"
+               [disabled]="isDisabledPrivateKeyControl()"
+               status="{{getControlStatus(isDisabledPrivateKeyControl())}}"/>
 
         <div style="height: 12px"></div>
 
-        <input nbInput fullWidth [(ngModel)]="target" placeholder="To" [disabled]="!type">
+        <input nbInput fullWidth [(ngModel)]="target" placeholder="To"
+               [disabled]="isDisabledTargetControl()"
+               status="{{getControlStatus(isDisabledTargetControl())}}">
 
         <div style="height: 12px"></div>
 
-        <input nbInput fullWidth [(ngModel)]="amount" placeholder="Amount" type="number" [disabled]="!type">
+        <input nbInput fullWidth [(ngModel)]="amount" placeholder="Amount" type="number"
+               [disabled]="isDisabledAmountControl()"
+               status="{{getControlStatus(isDisabledAmountControl())}}">
     </nb-card-body>
     <nb-card-footer>
-            <div class="row">
-                <div class="col-12">
-                    Choose speed
-                    <nb-radio-group [(ngModel)]="speed">
-                        <nb-radio value="10">10</nb-radio>
-                        <nb-radio value="20">20</nb-radio>
-                        <nb-radio value="3">30</nb-radio>
-                    </nb-radio-group>
-                </div>
-            </div>
         <div class="row">
             <div class="col-12">
-                <button nbButton (click)="sendClick()" [disabled]="!amount || !target || !privateKey">Send</button>
+                Choose speed (gWei)
+                <nb-radio-group [(ngModel)]="speed" [disabled]="isDisabledSpeedControl()">
+                    <nb-radio value="10" [checked]="true">10</nb-radio>
+                    <nb-radio value="20">20</nb-radio>
+                    <nb-radio value="30">30</nb-radio>
+                    <nb-radio value="0">Custom</nb-radio>
+                </nb-radio-group>
+                <div style="padding: 12px 0" *ngIf="isShowCustomSpeed()">
+                    <input nbInput [(ngModel)]="customSpeed"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <button nbButton fullWidth (click)="sendClick()" [disabled]="isDisabledSendButton()">Send</button>
+            </div>
+            <div class="col-10 text-danger my-auto">
+                {{ error }}
             </div>
         </div>
     </nb-card-footer>

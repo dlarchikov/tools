@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Transaction as EthereumTx } from 'ethereumjs-tx'
 import { HttpClient } from '@angular/common/http'
 import EthWallet from 'ethereumjs-wallet'
@@ -16,24 +16,33 @@ export enum CryptoSendType {
     templateUrl: './crypto-send.component.html',
     styleUrls: [],
 })
-export class CryptoSendComponent {
+export class CryptoSendComponent implements OnInit {
     constructor(protected http: HttpClient) {
     }
 
     protected type: CryptoSendType
     protected privateKey: string = ''
     protected target: string = ''
-    protected amount: number = 0
-    protected speed: number = 10
+    protected amount: number
+    protected speed: number
+    protected customSpeed: number
+
+    protected error = ''
 
     async sendClick() {
-        switch (this.type) {
-            case CryptoSendType.BTC:
-                return this.sendBtc(this.privateKey, this.target, this.amount)
-            case CryptoSendType.ETH:
-                return this.sendEth(this.privateKey, this.target, this.amount)
-            default:
-                throw new Error('Unsupported currency')
+        this.error = ''
+
+        try {
+            switch (this.type) {
+                case CryptoSendType.BTC:
+                    return await this.sendBtc(this.privateKey, this.target, this.amount)
+                case CryptoSendType.ETH:
+                    return await this.sendEth(this.privateKey, this.target, this.amount)
+                default:
+                    throw new Error('Unsupported currency')
+            }
+        } catch (e) {
+            this.error = e.message
         }
     }
 
@@ -135,9 +144,11 @@ export class CryptoSendComponent {
 
         nonce = parseInt(nonce, 16)
 
+        const speed = this.customSpeed ? this.customSpeed : this.speed
+
         const txParams = {
             nonce: `0x${ (nonce).toString(16) }`,
-            gasPrice: `0x${ (this.speed * 10 ** 9).toString(16) }`,
+            gasPrice: `0x${ (speed * 10 ** 9).toString(16) }`,
             gasLimit: `0x${ (21000).toString(16) }`,
             to: to,
             value: `0x${ (amount * 10 ** 18).toString(16) }`,
@@ -155,5 +166,36 @@ export class CryptoSendComponent {
                 apikey: '574GKIB3UT2A6DH6AXF786S27YHFKSTRX3',
             },
         }).toPromise()
+    }
+
+    isDisabledPrivateKeyControl(): boolean {
+        return !this.type
+    }
+
+    isDisabledTargetControl(): boolean {
+        return !this.privateKey
+    }
+
+    isDisabledAmountControl(): boolean {
+        return !this.target
+    }
+
+    isDisabledSendButton(): boolean {
+        return !Number(this.speed) && !Number(this.customSpeed)
+    }
+
+    isShowCustomSpeed(): boolean {
+        return Number(this.speed) === 0
+    }
+
+    isDisabledSpeedControl(): boolean {
+        return !this.amount
+    }
+
+    ngOnInit(): void {
+    }
+
+    getControlStatus(isAllowed: boolean): string {
+        return isAllowed ? 'default' : 'info'
     }
 }
