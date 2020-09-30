@@ -1,7 +1,6 @@
 import {ModuleWithProviders, NgModule} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {FormsModule, ReactiveFormsModule} from '@angular/forms'
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap'
 
 import {
     NbAccordionModule, NbActionsModule, NbAlertModule, NbButtonModule, NbCardModule, NbCheckboxModule,
@@ -16,7 +15,7 @@ import {NbSecurityModule} from '@nebular/security'
 
 import {FooterComponent, HeaderComponent} from './components'
 import {CapitalizePipe, EvaIconsPipe, NumberWithCommasPipe, PluralPipe, RoundPipe, TimingPipe} from './pipes'
-import {SampleLayoutComponent} from './layouts'
+import {OneColumnLayoutComponent} from './layouts'
 import {DEFAULT_THEME} from './styles/theme.default'
 import {COSMIC_THEME} from './styles/theme.cosmic'
 import {CORPORATE_THEME} from './styles/theme.corporate'
@@ -34,7 +33,6 @@ const NB_MODULES = [
     NbSidebarModule,
     NbCheckboxModule,
     NbPopoverModule,
-    NgbModule,
     NbSecurityModule, // *nbIsGranted directive,
     NbProgressBarModule,
     NbStepperModule,
@@ -54,7 +52,7 @@ const NB_MODULES = [
 const COMPONENTS = [
     HeaderComponent,
     FooterComponent,
-    SampleLayoutComponent,
+    OneColumnLayoutComponent,
 ]
 
 const ENTRY_COMPONENTS = []
@@ -88,8 +86,8 @@ const NB_THEME_PROVIDERS = [
     entryComponents: [...ENTRY_COMPONENTS],
 })
 export class ThemeModule {
-    static forRoot(): ModuleWithProviders {
-        return <ModuleWithProviders> {
+    static forRoot(): ModuleWithProviders<ThemeModule> {
+        return <ModuleWithProviders<ThemeModule>> {
             ngModule: ThemeModule,
             providers: [...NB_THEME_PROVIDERS],
         }

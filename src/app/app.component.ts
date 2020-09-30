@@ -10,10 +10,10 @@ import {CookieService} from 'ngx-cookie-service'
 @Component({
     selector: 'ngx-app',
     template: `
-        <ngx-sample-layout>
+        <ngx-one-column-layout>
             <nb-menu [items]="menu"></nb-menu>
             <router-outlet></router-outlet>
-        </ngx-sample-layout>`,
+        </ngx-one-column-layout>`,
 })
 export class AppComponent implements OnInit {
     menu: NbMenuItem[] = [
@@ -23,32 +23,32 @@ export class AppComponent implements OnInit {
         },
         {
             title: 'Home',
-            icon: 'nb-home',
+            icon: 'home',
             link: '/',
         },
         {
             title: 'Wallet generate',
-            icon: 'nb-locked',
+            icon: 'lock-outline',
             link: '/wallet',
         },
         {
             title: 'Google direct link',
-            icon: 'nb-shuffle',
+            icon: 'shuffle',
             link: '/google-direct-link',
         },
         {
             title: 'QR-code generator',
-            icon: 'nb-grid-a-outline',
+            icon: 'square-outline',
             link: '/qr-code',
         },
         {
             title: 'Ethereum tx parser',
-            icon: 'nb-compose',
+            icon: 'code-download-outline',
             link: '/ethereum-parser',
         },
         {
             title: 'Crypto send',
-            icon: 'nb-checkmark',
+            icon: 'checkmark',
             link: '/crypto-send',
         },
     ]

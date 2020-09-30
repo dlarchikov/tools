@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt update \
     && apt install -y curl software-properties-common make gcc g++ \
-    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_13.x | bash - \
     && apt install -y nodejs \
     && add-apt-repository ppa:nginx/stable \
     && apt update \
