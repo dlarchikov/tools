@@ -4,7 +4,7 @@ import coinselect from 'coinselect'
 import * as bitcoin from 'bitcoinjs-lib'
 import { GeneratorService } from '../../services/generator.service'
 import { HttpClient } from '@angular/common/http'
-import { payments, Psbt } from 'bitcoinjs-lib'
+import { Psbt } from 'bitcoinjs-lib'
 
 @Component({
     selector: 'ngx-btc-rpc-wallet',
@@ -59,17 +59,17 @@ export class BtcRpcWalletComponent implements OnInit {
     }
 
     async loadUtxo() {
-        const utxoResult = await this.http.post(this.rpc,
-            {
-                'jsonrpc': '1.0',
-                'id': 'curltest',
-                'method': 'scantxoutset',
-                'params': ['start', [`addr(${ this.address })`]],
-            },
-            {
-                headers: { 'content-type': 'text/plain' },
-            }).toPromise().catch(_ => {
-        })
+        // const utxoResult = await this.http.post(this.rpc,
+        //     {
+        //         'jsonrpc': '1.0',
+        //         'id': 'curltest',
+        //         'method': 'scantxoutset',
+        //         'params': ['start', [`addr(${ this.address })`]],
+        //     },
+        //     {
+        //         headers: { 'content-type': 'text/plain' },
+        //     }).toPromise().catch(_ => {
+        // })
 
         this.balance = 0.2002822
         this.utxo = [{
