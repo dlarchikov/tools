@@ -55,7 +55,7 @@
         "bitcoinjs-lib": "^5.2.0",
         "bootstrap": "4.3.1",
         "chart.js": "2.7.1",
-        "ckeditor": "4.7.3",
+        "ckeditor": "4.12.1",
         "classlist.js": "1.1.20150312",
         "coinselect": "^3.1.12",
         "core-js": "2.5.1",
