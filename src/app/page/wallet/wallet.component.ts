@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core'
 import {GeneratorService, TGenerate} from '../../services/generator.service'
 import {IKeyPair, IKeyPairEos} from '../../interfaces/IKeyPair'
+import * as bitcoin from 'bitcoinjs-lib'
+import { Network } from 'bitcoinjs-lib'
 
 @Component({
     selector: 'ngx-wallet',
@@ -9,6 +11,7 @@ import {IKeyPair, IKeyPairEos} from '../../interfaces/IKeyPair'
 })
 export class WalletComponent implements OnInit {
     @Input() type: TGenerate
+    @Input() btcNetwork: Network = bitcoin.networks.bitcoin
 
     keys: IKeyPair | IKeyPairEos
     generatorStarted: boolean = false
@@ -22,7 +25,13 @@ export class WalletComponent implements OnInit {
     }
 
     isGenerateDisabled(): boolean {
+        if (this.isShowNetworkSelector()) {}
+
         return !this.type
+    }
+
+    isShowNetworkSelector(): boolean {
+        return this.type === 'BTC'
     }
 
     onSelectType() {
@@ -33,7 +42,7 @@ export class WalletComponent implements OnInit {
     generate() {
         this.generatorStarted = true
         setTimeout(
-            async () => this.keys = await this.generatorService.generate(this.type), 500,
+            async () => this.keys = await this.generatorService.generate(this.type, {network: this.btcNetwork} ), 500,
         )
     }
 }
