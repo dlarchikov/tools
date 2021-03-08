@@ -1,13 +1,14 @@
-import {ExtraOptions, RouterModule, Routes} from '@angular/router'
-import {NgModule} from '@angular/core'
-import {IndexComponent} from './page/index/index.component'
-import {NotFoundComponent} from './page/not-found/not-found.component'
-import {StaticPageComponent} from './page/static-page/static-page.component'
-import {WalletComponent} from './page/wallet/wallet.component'
-import {GoogleDirectLinkComponent} from './page/google-direct-link/google-direct-link.component'
-import {QrCodeComponent} from './page/qr-code/qr-code.component'
+import { ExtraOptions, RouterModule, Routes } from '@angular/router'
+import { NgModule } from '@angular/core'
+import { IndexComponent } from './page/index/index.component'
+import { NotFoundComponent } from './page/not-found/not-found.component'
+import { StaticPageComponent } from './page/static-page/static-page.component'
+import { WalletComponent } from './page/wallet/wallet.component'
+import { GoogleDirectLinkComponent } from './page/google-direct-link/google-direct-link.component'
+import { QrCodeComponent } from './page/qr-code/qr-code.component'
 import { EthereumParserComponent } from './page/ethereum-parser/ethereum-parser.component'
 import { CryptoSendComponent } from './page/crypto-send/crypto-send.component'
+import { BtcRpcWalletComponent } from './page/btc-rpc-wallet/btc-rpc-wallet.component'
 
 const routes: Routes = [
     {
@@ -35,11 +36,15 @@ const routes: Routes = [
         component: CryptoSendComponent,
     },
     {
+        path: 'btc-rpc-wallet',
+        component: BtcRpcWalletComponent,
+    },
+    {
         path: '',
         component: IndexComponent,
     },
 
-    {path: '**', component: NotFoundComponent},
+    { path: '**', component: NotFoundComponent },
 ]
 
 const config: ExtraOptions = {

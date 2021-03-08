@@ -35,7 +35,7 @@ export class GeneratorService {
                 network: this.getBtcNetworkByName(options.network),
             })
             return success({
-                privateKey: keyPair.privateKey.toString('hex'),
+                privateKey: keyPair.toWIF(),
                 publicKey: address,
             })
         })
@@ -69,7 +69,7 @@ export class GeneratorService {
         })
     }
 
-    private getBtcNetworkByName(networkName: string): Network {
+    public getBtcNetworkByName(networkName: string): Network {
         switch (networkName) {
             case 'regtest':
                 return bitcoin.networks.regtest

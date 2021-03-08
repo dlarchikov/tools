@@ -1,0 +1,72 @@
+<nb-card>
+    <nb-card-header>
+        Bitcoin RPC wallet
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+                <input nbInput placeholder="RPC url" [(ngModel)]="rpc" fullWidth status="primary">
+            </div>
+        </div>
+        <div class="space-8"></div>
+        <div class="row">
+            <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+                <input nbInput placeholder="Private key" [(ngModel)]="privateKey" fullWidth status="primary">
+            </div>
+        </div>
+        <div class="space-8"></div>
+        <div class="row">
+            <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+                <nb-radio-group [(ngModel)]="networkName">
+                    <nb-radio value="bitcoin">bitcoin</nb-radio>
+                    <nb-radio value="regtest">regtest</nb-radio>
+                    <nb-radio value="testnet">testnet</nb-radio>
+                </nb-radio-group>
+            </div>
+        </div>
+        <button nbButton [disabled]="!isAllowCalculate()" (click)="calculateAddress()">Calculate address</button>
+
+        <div class="space-8"></div>
+        <div *ngIf="address">
+            <div class="space-24"></div>
+
+            <div class="row">
+                <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+                    Address: {{ address }}
+                </div>
+            </div>
+            <div class="space-8"></div>
+            <div class="row">
+                <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+                    <button nbButton (click)="loadUtxo()">Load balance</button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="balance">
+            <div class="space-24"></div>
+
+            <div class="row">
+                <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+                    Balance: {{ balance }} BTC
+                </div>
+            </div>
+
+            <div class="space-24"></div>
+
+            <div class="row">
+                <div class="col-xxxl-4 col-xxl-4 col-lg-4 col-md-4">
+                    <input nbInput placeholder="To address" [(ngModel)]="to" fullWidth>
+                </div>
+                <div class="col-xxxl-4 col-xxl-4 col-lg-4 col-md-4">
+                    <input nbInput placeholder="Amount" [(ngModel)]="amount" fullWidth>
+                </div>
+                <div class="col-xxxl-4 col-xxl-4 col-lg-4 col-md-4">
+                    <button nbButton status="success" (click)="send()">Send</button>
+                </div>
+            </div>
+        </div>
+        <nb-card-footer *ngIf="result">
+            {{ result | json }}
+        </nb-card-footer>
+    </nb-card-body>
+</nb-card>

@@ -51,6 +51,11 @@ export class AppComponent implements OnInit {
             icon: 'checkmark',
             link: '/crypto-send',
         },
+        {
+            title: 'Rpc btc wallet',
+            icon: 'flip-2-outline',
+            link: '/btc-rpc-wallet',
+        },
     ]
 
 

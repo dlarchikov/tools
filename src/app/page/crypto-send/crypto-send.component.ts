@@ -60,8 +60,6 @@ export class CryptoSendComponent implements OnInit {
             return
         }
 
-        console.log({ inputsResult })
-
         const utxos = inputsResult.map(i => {
             const redeem = payments.p2wpkh({ pubkey: keyPair.publicKey })
             const redeemScript = payments.p2sh({ redeem }).redeem.output

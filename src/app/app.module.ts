@@ -24,7 +24,8 @@ import { WalletComponent } from './page/wallet/wallet.component'
 import { GoogleDirectLinkComponent } from './page/google-direct-link/google-direct-link.component'
 import { QrCodeComponent } from './page/qr-code/qr-code.component'
 import { EthereumParserComponent } from './page/ethereum-parser/ethereum-parser.component'
-import { CryptoSendComponent } from './page/crypto-send/crypto-send.component'
+import { CryptoSendComponent } from './page/crypto-send/crypto-send.component';
+import { BtcRpcWalletComponent } from './page/btc-rpc-wallet/btc-rpc-wallet.component'
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { CryptoSendComponent } from './page/crypto-send/crypto-send.component'
         QrCodeComponent,
         EthereumParserComponent,
         CryptoSendComponent,
+        BtcRpcWalletComponent,
     ],
     imports: [
         BrowserModule,
