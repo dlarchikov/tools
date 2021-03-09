@@ -5,25 +5,28 @@
     <nb-card-body>
         <div class="row">
             <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
-                <input nbInput placeholder="RPC url" [(ngModel)]="rpc" fullWidth status="primary">
+                <input nbInput placeholder="RPC url" [(ngModel)]="rpc" fullWidth>
             </div>
         </div>
         <div class="space-8"></div>
         <div class="row">
             <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
-                <input nbInput placeholder="RPC user" [(ngModel)]="user" fullWidth status="primary">
+                <input nbInput placeholder="RPC user" [(ngModel)]="user" fullWidth>
             </div>
         </div>
         <div class="space-8"></div>
         <div class="row">
             <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
-                <input nbInput placeholder="RPC password" [(ngModel)]="password" fullWidth status="primary">
+                <input nbInput placeholder="RPC password" [(ngModel)]="password" fullWidth>
             </div>
         </div>
         <div class="space-24"></div>
         <div class="row">
-            <div class="col-xxxl-12 col-xxl-12 col-lg-12 col-md-12">
+            <div class="col-xxxl-10 col-xxl-10 col-lg-10 col-md-9">
                 <input nbInput placeholder="Private key" [(ngModel)]="privateKey" fullWidth status="primary">
+            </div>
+            <div class="col-xxxl-2 col-xxl-2 col-lg-2 col-md-3">
+                <input nbInput placeholder="Speed (Sat/b)" [(ngModel)]="speed" fullWidth>
             </div>
         </div>
         <div class="space-8"></div>

@@ -5,6 +5,28 @@ import * as bitcoin from 'bitcoinjs-lib'
 import { GeneratorService } from '../../services/generator.service'
 import { HttpClient } from '@angular/common/http'
 import { Psbt } from 'bitcoinjs-lib'
+import { ActivatedRoute } from '@angular/router'
+import { NbToastrService } from '@nebular/theme'
+
+export interface UtxoResult {
+    error?: string,
+    id: string,
+    result: {
+        success: boolean,
+        txouts: number,
+        height: number,
+        bestblock: string,
+        unspents: {
+            txid: string,
+            vout: number,
+            scriptPubKey: string,
+            desc: string,
+            amount: number,
+            height: number,
+        }[],
+        total_amount: number,
+    }
+}
 
 @Component({
     selector: 'ngx-btc-rpc-wallet',
@@ -19,6 +41,7 @@ export class BtcRpcWalletComponent implements OnInit {
     @Input() privateKey: string = ''
     @Input() to: string = ''
     @Input() amount: number = 0
+    @Input() speed: number = 50
 
     address: string = ''
     utxo = []
@@ -26,10 +49,41 @@ export class BtcRpcWalletComponent implements OnInit {
 
     result: string
 
-    constructor(protected generatorService: GeneratorService, protected http: HttpClient) {
+    constructor(
+        protected generatorService: GeneratorService,
+        protected http: HttpClient,
+        protected route: ActivatedRoute,
+        protected toastrService: NbToastrService,
+    ) {
     }
 
     ngOnInit(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                if (params.rpc) {
+                    this.rpc = params.rpc
+                }
+
+                if (params.user) {
+                    this.user = params.user
+                }
+
+                if (params.password) {
+                    this.password = params.password
+                }
+
+                if (params.privateKey) {
+                    this.privateKey = params.privateKey
+                }
+
+                if (params.networkName) {
+                    this.networkName = params.networkName
+                }
+
+                if (params.speed) {
+                    this.speed = params.speed
+                }
+            })
     }
 
     isAllowCalculate() {
@@ -61,7 +115,7 @@ export class BtcRpcWalletComponent implements OnInit {
     }
 
     async loadUtxo() {
-        const utxoResult = await this.http.post(this.rpc,
+        const utxoResult: UtxoResult = await this.http.post(this.rpc,
             {
                 'jsonrpc': '1.0',
                 'id': 'curltest',
@@ -74,21 +128,10 @@ export class BtcRpcWalletComponent implements OnInit {
                     'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
                 },
             })
-            .toPromise()
-            .catch(_ => {
-            })
+            .toPromise() as any
 
-        console.log({ utxoResult })
-
-        this.balance = 0.2002822
-        this.utxo = [{
-            'txid': 'd72e08f5aaea9ce30b2fcbf9f8687c095f6a59ee575248ee9343b48f880b5959',
-            'vout': 0,
-            'scriptPubKey': '76a91448ab8a09076ef10561de7918f0a485062e3222fb88ac',
-            'desc': 'addr(mn9CScpY8Eqx4DVeNvujuawCftuADF1sFt)#yktzrver',
-            'amount': 0.01000000,
-            'height': 2518,
-        }]
+        this.balance = utxoResult.result.total_amount
+        this.utxo = utxoResult.result.unspents
     }
 
     async send() {
@@ -99,16 +142,31 @@ export class BtcRpcWalletComponent implements OnInit {
             },
         ]
 
-        const utxos = this.utxo.map(i => {
-            return {
-                txId: i.txid,
-                value: i.amount * 10 ** 8,
-                nonWitnessUtxo: Buffer.from('020000000001013ae9dfae6e1a7a69c04b2a463fa93627a45de71350ee5f5ce3cce8b2546a1e27010000001716001472ca5b1db2e55826704b684fe5fe30e75fee5712ffffffff023c9b3101000000001976a914e8806fafcf9b5877981b37be790cffbdbfb2291888acc002872e0000000017a914047032105670286fa4eae517f510ace192895fd78702483045022100bedcd1537c8954e51e855363468b71d4dbb13b2faf1827137c25b8e1d79bb6790220041d626b61daaf201e4a42268775f0b8f918c99fbb350dc990d7bcf1d5f07f89012103b569edd93800049284359bf36c0b263721a72986dfffdcf131ded081cd04686600000000', 'hex'),
-                vout: i.vout,
-            }
-        })
+        const utxos = await Promise.all(this.utxo.map(async i => {
+                const { result: rawTx } = await this.http.post(this.rpc, {
+                    'jsonrpc': '1.0',
+                    'id': 'curltest',
+                    'method': 'getrawtransaction',
+                    'params': [i.txid],
+                }, {
+                    headers: {
+                        'content-type': 'application/json',
+                        'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
+                    },
+                }).toPromise() as any
 
-        const { inputs, outputs } = coinselect(utxos, targets, 50)
+                return {
+                    txId: i.txid,
+                    value: i.amount * 10 ** 8,
+                    nonWitnessUtxo: Buffer.from(rawTx, 'hex'),
+                    vout: i.vout,
+                }
+            }),
+        )
+
+        console.log({ utxos, targets, speed: this.speed })
+
+        const { inputs, outputs } = coinselect(utxos, targets, Number(this.speed))
 
         console.log({ inputs, outputs })
 
@@ -146,20 +204,26 @@ export class BtcRpcWalletComponent implements OnInit {
 
         const txHex = psbt.extractTransaction().toHex()
 
-        const pushResult = await this.http.post(this.rpc,
-            {
-                'jsonrpc': '1.0',
-                'id': 'curltest',
-                'method': 'sendrawtransaction',
-                'params': [txHex],
-            },
-            {
-                headers: {
-                    'content-type': 'text/plain',
-                    'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
-                },
-            }).toPromise()
+        const txId = psbt.extractTransaction().getId()
 
-        this.result = JSON.stringify(pushResult)
+        try {
+            await this.http.post(this.rpc,
+                {
+                    'jsonrpc': '1.0',
+                    'id': 'curltest',
+                    'method': 'sendrawtransaction',
+                    'params': [txHex],
+                },
+                {
+                    headers: {
+                        'content-type': 'text/plain',
+                        'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
+                    },
+                }).toPromise()
+
+            this.result = txId
+        } catch (e) {
+            this.toastrService.danger(e.message)
+        }
     }
 }
