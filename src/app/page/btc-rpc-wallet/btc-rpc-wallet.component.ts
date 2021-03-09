@@ -14,6 +14,8 @@ import { Psbt } from 'bitcoinjs-lib'
 export class BtcRpcWalletComponent implements OnInit {
     @Input() networkName: string = 'bitcoin'
     @Input() rpc: string = ''
+    @Input() user: string = ''
+    @Input() password: string = ''
     @Input() privateKey: string = ''
     @Input() to: string = ''
     @Input() amount: number = 0
@@ -67,8 +69,10 @@ export class BtcRpcWalletComponent implements OnInit {
                 'params': ['start', [`addr(${ this.address })`]],
             },
             {
-                headers: { 'content-type': 'text/plain' },
-                withCredentials: true,
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
+                },
             })
             .toPromise()
             .catch(_ => {
@@ -150,8 +154,10 @@ export class BtcRpcWalletComponent implements OnInit {
                 'params': [txHex],
             },
             {
-                headers: { 'content-type': 'text/plain' },
-                withCredentials: true,
+                headers: {
+                    'content-type': 'text/plain',
+                    'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
+                },
             }).toPromise()
 
         this.result = JSON.stringify(pushResult)
