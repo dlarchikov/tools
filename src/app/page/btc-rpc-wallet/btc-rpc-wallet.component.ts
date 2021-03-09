@@ -68,6 +68,7 @@ export class BtcRpcWalletComponent implements OnInit {
             },
             {
                 headers: { 'content-type': 'text/plain' },
+                withCredentials: true,
             })
             .toPromise()
             .catch(_ => {
@@ -150,6 +151,7 @@ export class BtcRpcWalletComponent implements OnInit {
             },
             {
                 headers: { 'content-type': 'text/plain' },
+                withCredentials: true,
             }).toPromise()
 
         this.result = JSON.stringify(pushResult)
