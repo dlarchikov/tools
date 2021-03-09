@@ -59,17 +59,21 @@ export class BtcRpcWalletComponent implements OnInit {
     }
 
     async loadUtxo() {
-        // const utxoResult = await this.http.post(this.rpc,
-        //     {
-        //         'jsonrpc': '1.0',
-        //         'id': 'curltest',
-        //         'method': 'scantxoutset',
-        //         'params': ['start', [`addr(${ this.address })`]],
-        //     },
-        //     {
-        //         headers: { 'content-type': 'text/plain' },
-        //     }).toPromise().catch(_ => {
-        // })
+        const utxoResult = await this.http.post(this.rpc,
+            {
+                'jsonrpc': '1.0',
+                'id': 'curltest',
+                'method': 'scantxoutset',
+                'params': ['start', [`addr(${ this.address })`]],
+            },
+            {
+                headers: { 'content-type': 'text/plain' },
+            })
+            .toPromise()
+            .catch(_ => {
+            })
+
+        console.log({ utxoResult })
 
         this.balance = 0.2002822
         this.utxo = [{
