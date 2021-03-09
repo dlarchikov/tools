@@ -226,4 +226,68 @@ export class BtcRpcWalletComponent implements OnInit {
             this.toastrService.danger(e.message)
         }
     }
+
+    async generateBlock() {
+        if (!this.to) {
+            this.toastrService.warning('', 'Please fill TO adress')
+            return
+        }
+
+        try {
+            await this.http.post(this.rpc,
+                {
+                    'jsonrpc': '1.0',
+                    'id': 'curltest',
+                    'method': 'generatetoaddress',
+                    'params': [1, this.to],
+                },
+                {
+                    headers: {
+                        'content-type': 'text/plain',
+                        'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
+                    },
+                }).toPromise()
+
+            this.toastrService.warning('', 'New block was generated')
+        } catch (e) {
+            this.toastrService.danger(e.message)
+        }
+    }
+
+    async calculateOuts() {
+        const targets = [
+            {
+                address: this.to,
+                value: this.amount * 10 ** 8,
+            },
+        ]
+
+        const utxos = await Promise.all(this.utxo.map(async i => {
+                const { result: rawTx } = await this.http.post(this.rpc, {
+                    'jsonrpc': '1.0',
+                    'id': 'curltest',
+                    'method': 'getrawtransaction',
+                    'params': [i.txid],
+                }, {
+                    headers: {
+                        'content-type': 'application/json',
+                        'authorization': `Basic ${ btoa(this.user + ':' + this.password) }`,
+                    },
+                }).toPromise() as any
+
+                return {
+                    txId: i.txid,
+                    value: i.amount * 10 ** 8,
+                    nonWitnessUtxo: Buffer.from(rawTx, 'hex'),
+                    vout: i.vout,
+                }
+            }),
+        )
+
+        console.log({ utxos, targets, speed: this.speed })
+
+        const { inputs, outputs } = coinselect(utxos, targets, Number(this.speed))
+
+        this.result = JSON.stringify({ inputs, outputs })
+    }
 }
